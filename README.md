@@ -4,9 +4,9 @@ Simple app to demonstrate the working product.
 
 ## To run
 
-pull repo
-`yarn`
-`yarn start`
+-   pull repo
+-   `yarn`
+-   `yarn start`
 
 ## Notes
 
