@@ -1,0 +1,10 @@
+.container {
+    width: 100hw;
+    display: flex;
+    flex-direction: row;
+}
+
+.command, .display {
+    flex-grow: 1;
+    border: 1px dotted black;
+}

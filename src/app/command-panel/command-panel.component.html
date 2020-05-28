@@ -1,0 +1,22 @@
+<h2>Choose your product</h2>
+
+<ul>
+    <li
+        *ngFor="let product of products$ | async"
+        (click)="onProductSelected($event.target.id)"
+        id="{{ product.id }}"
+    >
+        {{ product.price / 100 | currency: "GBP" }} {{ product.name }}
+    </li>
+</ul>
+
+<h2>Insert a coin</h2>
+
+<ul>
+    <li
+        *ngFor="let denomination of denominations$ | async"
+        (click)="onCoinInserted(denomination)"
+    >
+        {{ denomination / 100 | currency: "GBP" }}
+    </li>
+</ul>
