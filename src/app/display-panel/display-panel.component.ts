@@ -19,9 +19,15 @@ export class DisplayPanelComponent implements OnInit {
         this.messages$ = this.vendingService.messages$;
         this.moneyBox$ = this.vendingService.moneyBox$;
         this.productBox$ = this.vendingService.productBox$;
-
-        this.messages$.subscribe(console.log);
     }
 
     ngOnInit(): void {}
+
+    onProductsTaken() {
+        this.vendingService.productsTaken();
+    }
+
+    onChangeTaken() {
+        this.vendingService.changeTaken();
+    }
 }

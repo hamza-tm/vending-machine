@@ -21,6 +21,9 @@
         {{ coin.value / 100 | currency: "GBP" }}
     </li>
 </ul>
+<button (click)="onChangeTaken()" [disabled]="(moneyBox$ | async).length === 0">
+    Take Change
+</button>
 
 <h3>Vending Tray</h3>
 
@@ -29,4 +32,9 @@
         {{ product.price / 100 | currency: "GBP" }} {{ product.name }}
     </li>
 </ul>
-
+<button
+    (click)="onProductsTaken()"
+    [disabled]="(productBox$ | async).length === 0"
+>
+    Take Items
+</button>

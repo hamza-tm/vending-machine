@@ -9,6 +9,8 @@ import {
     CoinInserted,
     ReloadCoins,
     ReloadProducts,
+    ProductsTaken,
+    ChangeTaken,
 } from 'src/store/vending.actions';
 
 export function recordToIdentifiableArray<T>(
@@ -55,6 +57,14 @@ export class VendingFacadeService {
 
     public coinInserted(value: number) {
         this.store.dispatch(new CoinInserted({ value }));
+    }
+
+    public productsTaken() {
+        this.store.dispatch(ProductsTaken);
+    }
+
+    public changeTaken() {
+        this.store.dispatch(ChangeTaken);
     }
 
     public reloadCoins(coins: Coin[]) {

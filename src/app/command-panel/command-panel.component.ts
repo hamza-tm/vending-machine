@@ -33,6 +33,14 @@ export class CommandPanelComponent implements OnInit {
         this.vendingService.coinInserted(value);
     }
 
+    onProductsTaken() {
+        this.vendingService.productsTaken();
+    }
+
+    onChangeTaken() {
+        this.vendingService.changeTaken();
+    }
+
     reloadProducts() {
         this.vendingService.reloadProducts(reloadableProducts);
     }

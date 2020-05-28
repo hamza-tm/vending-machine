@@ -12,6 +12,14 @@ export class CoinInserted {
     constructor(public coin: Coin) {}
 }
 
+export class ProductsTaken {
+    static readonly type = '[Vending] Products Taken';
+}
+
+export class ChangeTaken {
+    static readonly type = '[Vending] Change Taken';
+}
+
 /* Commands */
 
 export class ReloadProducts {

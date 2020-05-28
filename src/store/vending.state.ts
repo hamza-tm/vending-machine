@@ -10,6 +10,8 @@ import { sumChange } from 'src/app/core/sum-change';
 import { produce } from 'immer';
 import { addRecord } from './helpers/add-record';
 import { reloadableCoins } from 'src/assets/reloadable-coins';
+import { Option, none, fold, some } from 'fp-ts/lib/Option';
+import { pipe } from 'fp-ts/lib/pipeable';
 
 export interface VendingStateModel {
     products: Record<ProductId, Product>;
@@ -18,6 +20,7 @@ export interface VendingStateModel {
     messages: string[];
     moneyBox: Coin[];
     productBox: Product[];
+    lastAttemptedVend: Option<ProductId>;
 }
 
 export const initialState: VendingStateModel = {
@@ -27,6 +30,7 @@ export const initialState: VendingStateModel = {
     messages: ['Please insert coins and choose a product'],
     moneyBox: [],
     productBox: [],
+    lastAttemptedVend: none,
 };
 
 @State<VendingStateModel>({
@@ -113,6 +117,7 @@ export class VendingState {
             moneyBox: [...moneyBox, ...attemptedChange.changeCoins],
             productBox: [...productBox, productToVend],
             change: attemptedChange.remainingCoins,
+            lastAttemptedVend: none,
         });
     }
 
@@ -128,17 +133,25 @@ export class VendingState {
 
         patchState({
             messages: [message],
+            lastAttemptedVend: some(productId),
         });
     }
 
     @Action(vendingActions.CoinInserted)
     coinInserted(
-        { getState, patchState }: StateContext<VendingStateModel>,
+        { getState, patchState, dispatch }: StateContext<VendingStateModel>,
         { coin }: vendingActions.CoinInserted
     ) {
-        const { change, credit } = getState();
+        const { change, credit, lastAttemptedVend } = getState();
         const newChange = [...change, coin];
         const newCredit = credit + coin.value;
+        pipe(
+            lastAttemptedVend,
+            fold(
+                () => {},
+                (id) => dispatch(new vendingActions.ProductSelected(id))
+            )
+        );
         patchState({
             change: newChange,
             credit: newCredit,
@@ -159,7 +172,6 @@ export class VendingState {
         { getState, patchState }: StateContext<VendingStateModel>,
         { products }: vendingActions.ReloadProducts
     ) {
-        console.log(products);
         const { products: currentProducts } = getState();
         const newProducts = produce(currentProducts, (draft) => {
             products.forEach((p) => addRecord(draft, p));
@@ -167,6 +179,22 @@ export class VendingState {
 
         patchState({
             products: newProducts,
+        });
+    }
+
+    @Action(vendingActions.ProductsTaken) productsTaken({
+        patchState,
+    }: StateContext<VendingStateModel>) {
+        patchState({
+            productBox: [],
+        });
+    }
+
+    @Action(vendingActions.ChangeTaken) changeTaken({
+        patchState,
+    }: StateContext<VendingStateModel>) {
+        patchState({
+            moneyBox: [],
         });
     }
 }
