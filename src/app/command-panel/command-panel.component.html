@@ -14,14 +14,14 @@
 
 <h3>Insert a coin</h3>
 
-<ul>
-    <li
+<div [className]="'stackable'">
+    <button
         *ngFor="let denomination of denominations$ | async"
         (click)="onCoinInserted(denomination)"
     >
         {{ denomination / 100 | currency: "GBP" }}
-    </li>
-</ul>
+    </button>
+</div>
 
 <h3>Reload things</h3>
 <div [className]="'stackable'">
