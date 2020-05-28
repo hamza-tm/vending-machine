@@ -2,19 +2,19 @@ import { ProductId, Product } from 'src/models';
 
 export const initialProducts: Record<ProductId, Product> = {
     [0]: {
-        name: 'coke',
+        name: 'Coke',
         price: 170,
     },
     [1]: {
-        name: 'pepsi',
+        name: 'Pepsi',
         price: 120,
     },
     [2]: {
-        name: 'sevenup',
+        name: 'Sevenup',
         price: 180,
     },
     [3]: {
-        name: 'pepsi',
+        name: 'Pepsi',
         price: 120,
     },
 };

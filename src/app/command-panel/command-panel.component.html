@@ -1,16 +1,18 @@
-<h2>Choose your product</h2>
+<h2>Control Panel</h2>
 
-<ul>
-    <li
+<h3>Choose your product</h3>
+
+<div [className]="'stackable'">
+    <button
         *ngFor="let product of products$ | async"
         (click)="onProductSelected($event.target.id)"
         id="{{ product.id }}"
     >
         {{ product.price / 100 | currency: "GBP" }} {{ product.name }}
-    </li>
-</ul>
+    </button>
+</div>
 
-<h2>Insert a coin</h2>
+<h3>Insert a coin</h3>
 
 <ul>
     <li
@@ -20,3 +22,9 @@
         {{ denomination / 100 | currency: "GBP" }}
     </li>
 </ul>
+
+<h3>Reload things</h3>
+<div [className]="'stackable'">
+    <button (click)="reloadProducts()">Reload Products</button>
+    <button (click)="reloadCoins()">Reload Coins</button>
+</div>

@@ -1,1 +1,32 @@
-<p>display-panel works!</p>
+<h2>Output</h2>
+
+<h3>Credit</h3>
+
+<div>{{ (credit$ | async) / 100 | currency: "GBP" }}</div>
+
+<h3>Messages</h3>
+
+<div>
+    <ul>
+        <li *ngFor="let message of messages$ | async">
+            {{ message }}
+        </li>
+    </ul>
+</div>
+
+<h3>Change Tray</h3>
+
+<ul>
+    <li *ngFor="let coin of moneyBox$ | async">
+        {{ coin.value / 100 | currency: "GBP" }}
+    </li>
+</ul>
+
+<h3>Vending Tray</h3>
+
+<ul>
+    <li *ngFor="let product of productBox$ | async">
+        {{ product.price / 100 | currency: "GBP" }} {{ product.name }}
+    </li>
+</ul>
+

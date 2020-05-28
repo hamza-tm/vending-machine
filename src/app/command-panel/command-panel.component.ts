@@ -3,6 +3,8 @@ import { VendingFacadeService } from '../services/vending-facade.service';
 import { Product, Identifiable } from 'src/models';
 import { Observable } from 'rxjs';
 import { DenominationsService } from '../services/denominations.service';
+import { reloadableProducts } from 'src/assets/reloadable-products';
+import { reloadableCoins } from 'src/assets/reloadable-coins';
 
 @Component({
     selector: 'app-command-panel',
@@ -29,5 +31,13 @@ export class CommandPanelComponent implements OnInit {
 
     onCoinInserted(value: number) {
         this.vendingService.coinInserted(value);
+    }
+
+    reloadProducts() {
+        this.vendingService.reloadProducts(reloadableProducts);
+    }
+
+    reloadCoins() {
+        this.vendingService.reloadCoins(reloadableCoins);
     }
 }

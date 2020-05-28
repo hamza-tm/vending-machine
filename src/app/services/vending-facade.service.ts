@@ -1,10 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
-import { Product, ProductId, Identifiable } from 'src/models';
+import { Product, ProductId, Identifiable, Coin } from 'src/models';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { VendingState } from 'src/store/vending.state';
-import { ProductSelected, CoinInserted } from 'src/store/vending.actions';
+import {
+    ProductSelected,
+    CoinInserted,
+    ReloadCoins,
+    ReloadProducts,
+} from 'src/store/vending.actions';
 
 export function recordToIdentifiableArray<T>(
     r: Record<number, T>
@@ -29,6 +34,12 @@ export class VendingFacadeService {
 
     @Select(VendingState.credit) credit$: Observable<number>;
 
+    @Select(VendingState.messages) messages$: Observable<string[]>;
+
+    @Select(VendingState.moneyBox) moneyBox$: Observable<Coin[]>;
+
+    @Select(VendingState.productBox) productBox$: Observable<Product[]>;
+
     public identifiableProducts$: Observable<Array<Product & Identifiable>>;
 
     constructor(private store: Store) {
@@ -44,5 +55,13 @@ export class VendingFacadeService {
 
     public coinInserted(value: number) {
         this.store.dispatch(new CoinInserted({ value }));
+    }
+
+    public reloadCoins(coins: Coin[]) {
+        this.store.dispatch(new ReloadCoins(coins));
+    }
+
+    public reloadProducts(products: Product[]) {
+        this.store.dispatch(new ReloadProducts(products));
     }
 }
