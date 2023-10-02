@@ -1,6 +1,6 @@
 # VendingMachine
 
-Simple app to demonstrate the working product.
+This was a simple app created as part of a tech interview. The purpose of this was to build a vending machine. There were a detailed set of requirements but I don't have those to hand any more.
 
 ## To run
 
